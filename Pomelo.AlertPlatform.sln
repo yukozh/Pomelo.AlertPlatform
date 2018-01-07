@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36382060-EA92-4095-9731-B3D770808A46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.API", "src\Pomelo.AlertPlatform.API\Pomelo.AlertPlatform.API.csproj", "{C6937380-9921-424F-BC96-0B240BCA0FEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlaftform.PlaySound.Windows", "src\Pomelo.AlertPlaftform.PlaySound.Windows\Pomelo.AlertPlaftform.PlaySound.Windows.csproj", "{B3232A36-4A22-4C92-856B-378BF6319418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlatform.Hardware", "src\Pomelo.AlertPlatform.Hardware\Pomelo.AlertPlatform.Hardware.csproj", "{464F5D55-13EA-4DAF-8458-547AF9188C19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3232A36-4A22-4C92-856B-378BF6319418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3232A36-4A22-4C92-856B-378BF6319418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3232A36-4A22-4C92-856B-378BF6319418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3232A36-4A22-4C92-856B-378BF6319418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C6937380-9921-424F-BC96-0B240BCA0FEF} = {36382060-EA92-4095-9731-B3D770808A46}
+		{B3232A36-4A22-4C92-856B-378BF6319418} = {36382060-EA92-4095-9731-B3D770808A46}
+		{464F5D55-13EA-4DAF-8458-547AF9188C19} = {36382060-EA92-4095-9731-B3D770808A46}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36B1F298-4C14-4374-8F35-47A1B5E70ABF}
+	EndGlobalSection
+EndGlobal
