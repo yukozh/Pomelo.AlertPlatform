@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pomelo.AlertPlatform.API.Models
 {
@@ -15,5 +13,10 @@ namespace Pomelo.AlertPlatform.API.Models
 
         [MaxLength(128)]
         public string Name { get; set; }
+
+        [ForeignKey("User")]
+        public Guid UserId { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

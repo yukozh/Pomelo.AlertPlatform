@@ -10,6 +10,13 @@ namespace Pomelo.AlertPlatform.API.Models
         Voice
     }
 
+    public enum MessageStatus
+    {
+        Pending,
+        Succeeded,
+        Failed
+    }
+
     public class Message
     {
         public Guid Id { get; set; }
@@ -30,10 +37,16 @@ namespace Pomelo.AlertPlatform.API.Models
         [MaxLength(512)]
         public string Text { get; set; }
 
+        public int Replay { get; set; } = 1;
+
         public DateTime CreatedTime { get; set; }
 
         public DateTime? DeliveredTime { get; set; }
 
         public MessageType Type { get; set; }
+
+        public MessageStatus Status { get; set; }
+
+        public string Error { get; set; }
     }
 }

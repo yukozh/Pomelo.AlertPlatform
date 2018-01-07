@@ -1,0 +1,61 @@
+﻿<div class="grid_3">
+    <div class="sidebar-section ">
+        <a class="sidebar-section-button @(ViewBag.Current == "home" ? "active" : "")" href="/">
+            <i class="fa fa-dashboard"></i>
+            <span>仪表盘</span>
+        </a>
+        <a data-group="app" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
+            <i class="fa fa-cube"></i>
+            <span>应用管理</span>
+            <i class="fa fa-angle-down sidebar-uplevel"></i>
+        </a>
+        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == " app-my" ? "active" : "" )" asp-action="App">
+            <span>我的应用</span>
+        </a>
+        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == "app-new" ? "active" : "")" asp-action="App">
+            <span>新应用</span>
+        </a>
+        <a data-group="sms" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
+            <i class="fa fa-paper-plane-o"></i>
+            <span>短消息</span>
+            <i class="fa fa-angle-down sidebar-uplevel"></i>
+        </a>
+        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-send" ? "active" : "")" asp-action="Send" asp-route-type="Sms">
+            <span>发送短消息</span>
+        </a>
+        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-history" ? "active" : "")" asp-action="History" asp-route-type="Sms">
+            <span>历史发送记录</span>
+        </a>
+        <a data-group="sms" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
+            <i class="fa fa-phone"></i>
+            <span>电话通知</span>
+            <i class="fa fa-angle-down sidebar-uplevel"></i>
+        </a>
+        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-send" ? "active" : "")" asp-action="Send" asp-route-type="Sms">
+            <span>发送电话通知</span>
+        </a>
+        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-history" ? "active" : "")" asp-action="History" asp-route-type="Sms">
+            <span>历史拨叫记录</span>
+        </a>
+        @if (User.IsInRole("Root"))
+        {
+            <a data-group="system" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
+                <i class="fa fa-cog"></i>
+                <span>系统设置</span>
+                <i class="fa fa-angle-down sidebar-uplevel"></i>
+            </a>
+            <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-pricing" ? "active" : "")" asp-action="Pricing">
+                <span>价格设定</span>
+            </a>
+            <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-hardware" ? "active" : "")" asp-action="Devices">
+                <span>硬件设定</span>
+            </a>
+        }
+    </div>
+    <a class="sidebar-section-button" href="javascript:$('#frm-logout').submit();">
+        <i class="fa fa-sign-out"></i>
+        <span>退出系统</span>
+    </a>
+</div>
+
+<form id="frm-logout" asp-action="Logout" asp-controller="Account"></form>

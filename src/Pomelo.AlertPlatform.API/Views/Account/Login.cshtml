@@ -1,0 +1,24 @@
+﻿@{ 
+    ViewBag.Title = "登录";
+}
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-md-offset-2">
+        <div class="card card-single card-error">
+            <div class="error-block-inner">
+                <h3>Pomelo Alert Platform</h3>
+                <form method="post" asp-action="Login" asp-controller="Account">
+                    <p>
+                        <span class="texthold">用户名</span>
+                        <input type="text" class="textbox w-3" name="username" />
+                    </p>
+                    <p>
+                        <span class="texthold">密码</span>
+                        <input type="password" class="textbox w-3" name="password" />
+                    </p>
+                    <input type="submit" value="登录" class="btn btn-default ripple home-link" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

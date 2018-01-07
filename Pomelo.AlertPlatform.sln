@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.API", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlaftform.PlaySound.Windows", "src\Pomelo.AlertPlaftform.PlaySound.Windows\Pomelo.AlertPlaftform.PlaySound.Windows.csproj", "{B3232A36-4A22-4C92-856B-378BF6319418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlatform.Hardware", "src\Pomelo.AlertPlatform.Hardware\Pomelo.AlertPlatform.Hardware.csproj", "{464F5D55-13EA-4DAF-8458-547AF9188C19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.Hardware", "src\Pomelo.AlertPlatform.Hardware\Pomelo.AlertPlatform.Hardware.csproj", "{464F5D55-13EA-4DAF-8458-547AF9188C19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

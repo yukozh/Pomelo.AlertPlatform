@@ -1,0 +1,67 @@
+﻿    <!-- start footer -->
+<footer class="main-footer">
+    <div class="footer-widget-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <!-- start widget -->
+                    <div class="widget">
+                        <h4 class="title"></h4>
+                        <div class="content recent-post">
+                        </div>
+                    </div>
+                    <!-- end widget -->
+                </div>
+                <div class="col-sm-6 col-md-4">		
+                    <div class="widget">
+                        <h4 class="title">关注我们</h4>
+                        <div class="content clearfix">
+                            <ul class="social">
+                                <!-- start social links -->
+                                <!-- replace the # with your own profile link address -->
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="skype"><i class="fa fa-skype"></i></a></li>
+                                <li><a href="#" class="pinterest"><i class="fa  fa-pinterest"></i></a></li>
+                                <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="#" class="vimeo"><i class="fa fa-vimeo-square"></i></a></li>
+                                <li><a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#" class="flickr"><i class="fa fa-flickr"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="http://avant-ghost.gbjsolution.com/rss/" class="rss"><i class="fa fa-rss"></i></a></li>
+                                <!-- end social links -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <!-- start widget -->
+                    <div class="widget">
+                        <h4 class="title">最新公告</h4>
+                        <div class="content">
+                            @*@foreach(var x in ViewBag.Announcements)
+                            { 
+                                <p><a asp-action="Thread" asp-controller="Forum" asp-route-id="@x.Id">@x.Title</a></p>
+                            }*@
+                        </div>
+                    </div>
+                    <!-- end widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        &copy; @DateTime.Now.Year <a href="https://github.com/JoyOI">Beijing Tsba Education &amp; Technologies Co., Ltd.</a> All right Reserved
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end footer -->

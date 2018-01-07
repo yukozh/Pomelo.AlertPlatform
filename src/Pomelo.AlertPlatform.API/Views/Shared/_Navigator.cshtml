@@ -1,0 +1,16 @@
+﻿<div id="navbar" class="navbar-collapse collapse">
+
+    <ul class="nav navbar-nav navbar-left">
+        <li class="home"><a asp-action="Index" asp-controller="Home">首页</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        @if (Context.Session.GetInt32("login") == 1)
+        {
+        <li class="login"><a href="javascript:$('#frmLogout').submit()">注销</a><form style="display:none" asp-action="Logout" asp-controller="Account" id="frmLogout"></form></li>
+        }
+        else
+        {
+        <li class="login"><a asp-action="Login" asp-controller="Account">登录</a></li>
+        }
+    </ul>
+</div>
