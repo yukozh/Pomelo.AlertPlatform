@@ -12,7 +12,7 @@
         <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == " app-my" ? "active" : "" )" asp-action="App">
             <span>我的应用</span>
         </a>
-        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == "app-new" ? "active" : "")" asp-action="App">
+        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == "app-new" ? "active" : "")" asp-action="NewApp">
             <span>新应用</span>
         </a>
         <a data-group="sms" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
@@ -26,15 +26,15 @@
         <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-history" ? "active" : "")" asp-action="History" asp-route-type="Sms">
             <span>历史发送记录</span>
         </a>
-        <a data-group="sms" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
+        <a data-group="phone" data-switch="off" class="sidebar-section-button active-uplevel" href="javascript:;">
             <i class="fa fa-phone"></i>
             <span>电话通知</span>
             <i class="fa fa-angle-down sidebar-uplevel"></i>
         </a>
-        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-send" ? "active" : "")" asp-action="Send" asp-route-type="Sms">
+        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-send" ? "active" : "")" asp-action="Send" asp-route-type="Phone">
             <span>发送电话通知</span>
         </a>
-        <a data-group="sms" class="sidebar-section-button nested @(ViewBag.Current == "sms-history" ? "active" : "")" asp-action="History" asp-route-type="Sms">
+        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-history" ? "active" : "")" asp-action="History" asp-route-type="Phone">
             <span>历史拨叫记录</span>
         </a>
         @if (User.IsInRole("Root"))
@@ -47,8 +47,11 @@
             <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-pricing" ? "active" : "")" asp-action="Pricing">
                 <span>价格设定</span>
             </a>
-            <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-hardware" ? "active" : "")" asp-action="Devices">
+            <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-hardware" ? "active" : "")" asp-action="Device">
                 <span>硬件设定</span>
+            </a>
+            <a data-group="system" class="sidebar-section-button nested @(ViewBag.Current == "system-tenant" ? "active" : "")" asp-action="Tenant">
+                <span>租户管理</span>
             </a>
         }
     </div>
