@@ -9,7 +9,7 @@
             <span>应用管理</span>
             <i class="fa fa-angle-down sidebar-uplevel"></i>
         </a>
-        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == " app-my" ? "active" : "" )" asp-action="App">
+        <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == "app-my" ? "active" : "" )" asp-action="App">
             <span>我的应用</span>
         </a>
         <a data-group="app" class="sidebar-section-button nested @(ViewBag.Current == "app-new" ? "active" : "")" asp-action="NewApp">
