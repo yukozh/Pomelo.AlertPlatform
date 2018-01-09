@@ -1,0 +1,16 @@
+﻿@{ 
+    ViewBag.Title = "新建应用";
+}
+
+<div class="cont-body">
+    <h3>创建应用</h3>
+    <form asp-action="NewApp">
+        <p>
+            <label>App 名称</label>
+            <input type="text" class="form-control" name="name" />
+        </p>
+        <p>
+            <input type="submit" value="提交" class="btn btn-default" />
+        </p>
+    </form>
+</div>

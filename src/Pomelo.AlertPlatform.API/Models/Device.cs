@@ -12,5 +12,7 @@ namespace Pomelo.AlertPlatform.API.Models
 
         [MaxLength(32)]
         public string PhoneNumber { get; set; }
+
+        public DateTime HeartBeat { get; set; } = DateTime.UtcNow;
     }
 }

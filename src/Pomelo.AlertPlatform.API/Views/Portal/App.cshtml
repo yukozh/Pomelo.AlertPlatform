@@ -1,3 +1,27 @@
-﻿<div class="cont-body">
-
+﻿@model IEnumerable<App>
+@{ 
+    ViewBag.Title = "我的应用";
+    ViewBag.Current = "app-my";
+}
+<div class="cont-body no-padding">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>App Id</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Name</td>
+                    <td>@x.Id</td>
+                    <td><a asp-action="AppSecret" asp-route-id="@x.Id">查看Secret</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Paging("tfoot-paging-item", "current", "tfoot-paging-outer")
 </div>

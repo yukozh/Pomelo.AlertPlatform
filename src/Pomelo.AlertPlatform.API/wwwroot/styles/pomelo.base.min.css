@@ -16063,3 +16063,73 @@ td i {
 .sidebar-section-button.nested {
     padding-left: 30px;
 }
+
+.tfoot-paging {
+    text-align: center !important;
+    border-top: 3px solid #ddd !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 0 0 10px 0 !important;
+}
+
+.tfoot-paging-outer {
+    margin-top: -3px;
+}
+
+.tfoot-paging-item {
+    border-top: 3px solid #ddd;
+    color: #888;
+    line-height: 35px;
+    transition: all 0.2s linear;
+    display: inline-block;
+    font-size: 12px;
+    min-width: 30px;
+    cursor: pointer;
+    text-align: center !important;
+    margin: 0 1px;
+}
+
+    .tfoot-paging-item:hover {
+        border-top: 3px solid #5590ae;
+        color: #5590ae;
+    }
+
+    .tfoot-paging-item.current {
+        border-top: 3px solid #ed5f82;
+        color: #ed5f82;
+    }
+
+.list-table {
+    width: 100%;
+}
+
+    .list-table th {
+        font-weight: normal;
+        text-align: left;
+    }
+
+    .list-table tbody tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+
+    .list-table td, .list-table th {
+        padding: 5px 15px;
+        font-size: 12px;
+    }
+
+.tfoot-paging-outer {
+    padding-left: 0;
+    text-align: center;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.list-table {
+    border-bottom: 3px solid #ddd;
+}
+
+.list-table tr {
+    border-bottom: 1px solid #ddd;
+}

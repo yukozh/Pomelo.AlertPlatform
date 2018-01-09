@@ -39,6 +39,8 @@ namespace Pomelo.AlertPlatform.API.Models
 
         public int Replay { get; set; } = 1;
 
+        public int RetryLeft { get; set; } = 3;
+
         public DateTime CreatedTime { get; set; }
 
         public DateTime? DeliveredTime { get; set; }

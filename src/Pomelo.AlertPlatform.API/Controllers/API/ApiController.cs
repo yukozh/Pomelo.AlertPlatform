@@ -11,7 +11,7 @@ namespace Pomelo.AlertPlatform.API.Controllers
         [HttpPut("message")]
         [HttpPost("message")]
         [HttpPatch("message")]
-        public async Task<IActionResult> Index(string to, string text, string phoneNumber, Guid appId, string secret, MessageType type)
+        public async Task<IActionResult> Index(string to, string text, string phoneNumber, int retry, Guid appId, string secret, MessageType type)
         {
             var app = GetApp(appId, secret);
             if (app == null)
@@ -26,7 +26,8 @@ namespace Pomelo.AlertPlatform.API.Controllers
                     CreatedTime = DateTime.UtcNow,
                     To = to,
                     Type = type,
-                    Text = text
+                    Text = text,
+                    RetryLeft = retry
                 });
                 await DB.SaveChangesAsync();
                 return Result(200, "Succeeded");
