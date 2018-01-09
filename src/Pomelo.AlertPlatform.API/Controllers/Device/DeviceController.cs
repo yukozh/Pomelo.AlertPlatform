@@ -59,5 +59,39 @@ namespace Pomelo.AlertPlatform.API.Controllers.Device
                 data = task
             });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateTask(Guid message, string error, MessageStatus? status, int? retryLeft, Guid device, string secret, CancellationToken token)
+        {
+            if (!await DB.Devices.AnyAsync(x => x.Id == device && x.Secret == secret, token))
+            {
+                return Json(new
+                {
+                    code = 403,
+                    msg = "Invalid credential"
+                });
+            }
+
+            var msg = await DB.Messages.SingleAsync(x => x.Id == message, token);
+            if (msg.DeviceId != device)
+            {
+                return Json(new
+                {
+                    code = 401,
+                    msg = "No permission"
+                });
+            }
+
+            if (!string.IsNullOrEmpty(error))
+                msg.Error = error;
+            if (status.HasValue)
+                msg.Status = status.Value;
+            if (retryLeft.HasValue)
+                msg.RetryLeft = retryLeft.Value;
+
+            return Json(new {
+                code = 200
+            });
+        }
     }
 }
