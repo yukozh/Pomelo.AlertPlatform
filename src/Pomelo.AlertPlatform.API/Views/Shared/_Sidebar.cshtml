@@ -54,11 +54,11 @@
                 <span>租户管理</span>
             </a>
         }
+        <a class="sidebar-section-button" href="javascript:$('#frm-logout').submit();">
+            <i class="fa fa-sign-out"></i>
+            <span>退出系统</span>
+        </a>
     </div>
-    <a class="sidebar-section-button" href="javascript:$('#frm-logout').submit();">
-        <i class="fa fa-sign-out"></i>
-        <span>退出系统</span>
-    </a>
 </div>
 
 <form id="frm-logout" asp-action="Logout" asp-controller="Account"></form>

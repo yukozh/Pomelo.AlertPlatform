@@ -53,7 +53,10 @@
     </div>
     <div class="main-content-area">
         <div class="container">
-            @RenderBody()
+            @Html.Partial("_Sidebar")
+            <div class="grid_9">
+                @RenderBody()
+            </div>
         </div>
     </div>
 
