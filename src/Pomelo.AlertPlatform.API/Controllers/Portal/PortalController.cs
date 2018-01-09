@@ -17,7 +17,7 @@ namespace Pomelo.AlertPlatform.API.Controllers.Portal
             return View();
         }
 
-        [Route("/{type:MessageType}/history")]
+        [Route("/{type}/history")]
         public async Task<IActionResult> History(MessageType type)
         {
             return PagedView(DB.Messages

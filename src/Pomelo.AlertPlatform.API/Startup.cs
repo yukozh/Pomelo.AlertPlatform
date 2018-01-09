@@ -14,7 +14,10 @@ namespace Pomelo.AlertPlatform.API
         {
             services.AddConfiguration(out var Config);
             services.AddEntityFrameworkMySql()
-                .AddDbContext<AlertContext>(x => x.UseMySql(Config["Database"]));
+                .AddDbContext<AlertContext>(x => {
+                    x.UseMySql(Config["Database"]);
+                    x.UseMySqlLolita();
+                });
             services
                 .AddIdentity<User, IdentityRole<Guid>>(x =>
                 {

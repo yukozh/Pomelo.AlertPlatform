@@ -42,6 +42,10 @@ namespace Pomelo.AlertPlatform.API.Models
                 e.HasIndex(x => x.Secret);
             });
 
+            builder.Entity<Configuration>(e => {
+                e.HasKey(x => x.Key);
+            });
+
             builder.Entity<Device>(e =>
             {
                 e.HasIndex(x => x.PhoneNumber).ForMySqlIsFullText();

@@ -9,6 +9,13 @@ namespace Pomelo.AlertPlatform.API.Controllers
 {
     public class AccountController : BaseController<AlertContext, User, Guid>
     {
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
             await SignInManager.SignInAsync(await User.Manager.FindByNameAsync(username), true);
