@@ -12,6 +12,7 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
 
         public event Func<Task> OnHangUpAsync;
         public event Func<Task> OnConnectedAsync;
+        public string Error { get; private set; } = "";
         private string phoneNumber;
         private TaskCompletionSource<bool> tcs;
 
@@ -60,6 +61,10 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
                 IsTargetAnsweredTheCall = true;
                 if (OnConnectedAsync != null)
                     await OnConnectedAsync();
+            }
+            else if (command.Contains("ERROR"))
+            {
+                Error += command + "\r\n";
             }
         }
     }

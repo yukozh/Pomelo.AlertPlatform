@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Message>
+
+    @section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo Alert Platform </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+    }
+
+    <form asp-action="Send" asp-route-type="@(ViewBag.Current == "sms-send" ? MessageType.Sms : MessageType.Voice)" class="cont-body">
+        <p>
+            <label>应用</label>
+            <select name="appid" class="form-control">
+                @foreach(Tuple<string, string> x in ViewBag.Apps)
+                {
+                <option value="@x.Item1">@x.Item2 (@x.Item1)</option>
+                }
+            </select>
+        </p>
+        <p>
+            <label>手机号码</label>
+            <input type="text" name="to" class="form-control" />
+        </p>
+        <p>
+            <label>消息内容 (500个字符以内)</label>
+            <textarea name="text" class="form-control" style="height: 200px;"></textarea>
+        </p>
+        <p><input type="submit" value="发送" class="btn btn-default" /></p>
+    </form>

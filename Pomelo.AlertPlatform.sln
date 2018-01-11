@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlaftform.PlayS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.Hardware", "src\Pomelo.AlertPlatform.Hardware\Pomelo.AlertPlatform.Hardware.csproj", "{464F5D55-13EA-4DAF-8458-547AF9188C19}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.TTS", "src\Pomelo.AlertPlatform.TTS\Pomelo.AlertPlatform.TTS.csproj", "{B809BA29-09B1-4329-B151-19675072800E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.PlaySound.Linux", "src\Pomelo.AlertPlatform.PlaySound.Linux\Pomelo.AlertPlatform.PlaySound.Linux.csproj", "{2054B233-7876-46E7-9E38-9BBF1CD7C0BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.DeviceClient", "src\Pomelo.AlertPlatform.DeviceClient\Pomelo.AlertPlatform.DeviceClient.csproj", "{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +35,18 @@ Global
 		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{464F5D55-13EA-4DAF-8458-547AF9188C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B809BA29-09B1-4329-B151-19675072800E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B809BA29-09B1-4329-B151-19675072800E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B809BA29-09B1-4329-B151-19675072800E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B809BA29-09B1-4329-B151-19675072800E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +55,9 @@ Global
 		{C6937380-9921-424F-BC96-0B240BCA0FEF} = {36382060-EA92-4095-9731-B3D770808A46}
 		{B3232A36-4A22-4C92-856B-378BF6319418} = {36382060-EA92-4095-9731-B3D770808A46}
 		{464F5D55-13EA-4DAF-8458-547AF9188C19} = {36382060-EA92-4095-9731-B3D770808A46}
+		{B809BA29-09B1-4329-B151-19675072800E} = {36382060-EA92-4095-9731-B3D770808A46}
+		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC} = {36382060-EA92-4095-9731-B3D770808A46}
+		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D} = {36382060-EA92-4095-9731-B3D770808A46}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36B1F298-4C14-4374-8F35-47A1B5E70ABF}

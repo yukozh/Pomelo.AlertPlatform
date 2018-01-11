@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Linq;
-using System.IO.Ports;
+using RJCP.IO.Ports;
 
 namespace Pomelo.AlertPlatform.Hardware.SIM2000C
 {
     public class Port
     {
-        public SerialPort SerialPort { get; private set; }
+        public SerialPortStream SerialPort { get; private set; }
 
         public Command CurrentCommand { get; private set; }
 
@@ -18,17 +19,25 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
             string[] ports;
             do
             {
-                ports = SerialPort.GetPortNames();
+                ports = SerialPortStream.GetPortNames();
             }
             while (ports.Length == 0);
 
-            SerialPort = new SerialPort(ports.First());
+            string defaultPort;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                SerialPort = new SerialPortStream(ports.First(x => x.StartsWith("COM")));
+            }
+            else
+            {
+                SerialPort = new SerialPortStream(ports.First(x => !x.Contains("ttyAMA0")));
+            }
             SetSerialPortProperties();
         }
 
         public Port(string comName)
         {
-            SerialPort = new SerialPort(comName);
+            SerialPort = new SerialPortStream(comName);
             SetSerialPortProperties();
         }
 

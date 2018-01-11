@@ -13,7 +13,7 @@ namespace Pomelo.AlertPlatform.API.Controllers.Portal
     [Authorize]
     public class PortalController : BaseController<AlertContext, User, Guid>
     {
-        public static string GetRandomString(int length, bool useNum = true, bool useLow = true, bool useUpp = true, bool useSpe = false, string custom = null)
+        private static string GetRandomString(int length, bool useNum = true, bool useLow = true, bool useUpp = true, bool useSpe = false, string custom = null)
         {
             byte[] b = new byte[4];
             new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(b);
@@ -105,10 +105,83 @@ namespace Pomelo.AlertPlatform.API.Controllers.Portal
         [Route("/{type}/history")]
         public async Task<IActionResult> History(MessageType type)
         {
+            if (type == MessageType.Sms)
+            {
+                ViewBag.Title = "短消息发送历史";
+                ViewBag.Current = "sms-history";
+            }
+            else
+            {
+                ViewBag.Title = "电话拨叫历史";
+                ViewBag.Current = "phone-history";
+            }
+
             return PagedView(DB.Messages
+                .Include(x => x.App)
                 .Where(x => x.App.UserId == User.Current.Id)
                 .Where(x => x.Type == type)
                 .OrderByDescending(x => x.CreatedTime));
+        }
+
+        [HttpGet]
+        [Route("/{type}/send")]
+        public async Task<IActionResult> Send(MessageType type, CancellationToken token)
+        {
+            if (type == MessageType.Sms)
+            {
+                ViewBag.Title = "发送短消息";
+                ViewBag.Current = "sms-send";
+            }
+            else
+            {
+                ViewBag.Title = "发送电话通知";
+                ViewBag.Current = "phone-send";
+            }
+
+            ViewBag.Apps = await DB.Apps
+                .Where(x => x.UserId == User.Current.Id)
+                .Select(x => new Tuple<string, string>(x.Id.ToString(), x.Name))
+                .ToListAsync(token);
+
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/{type}/send")]
+        public async Task<IActionResult> Send(MessageType type, Guid appId, string to, string text, CancellationToken token)
+        {
+            var app = await DB.Apps.SingleOrDefaultAsync(x => x.Id == appId, token);
+
+            if (!User.IsInRole("Root") && app.UserId != User.Current.Id)
+            {
+                return Prompt(x => 
+                {
+                    x.StatusCode = 401;
+                    x.Title = "没有权限";
+                    x.Details = "您没有权限使用这个App";
+                });
+            }
+
+            DB.Messages.Add(new Message
+            {
+                AppId = appId,
+                Replay = 3,
+                RetryLeft = 3,
+                Status = MessageStatus.Pending,
+                Text = text,
+                To = to,
+                Type = type,
+                CreatedTime = DateTime.UtcNow
+            });
+            await DB.SaveChangesAsync(token);
+            return Prompt(x =>
+            {
+                x.Title = "发送成功";
+                x.Details = "您的请求已被接受，我们将立即为您发送通知。";
+                x.HideBack = true;
+                x.RedirectText = "转到历史记录";
+                x.RedirectUrl = Url.Action("History", new { type });
+            });
         }
     }
 }

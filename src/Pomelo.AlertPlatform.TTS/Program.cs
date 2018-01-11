@@ -5,16 +5,19 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Pomelo.AlertPlaftform.PlaySound
+namespace Pomelo.AlertPlaftform.TTS
 {
-    public static class BaiduTextToSpeech
+    public static class TextToSpeech
     {
-        private static TaskCompletionSource<bool> taskCompletionSource;
+        public static void Main(string[] args)
+        {
+            SaveSpeechMp3Async(args[0], args[1]).Wait();
+        }
 
         private static async Task<string> GetAccessTokenAsync()
         {
             using (var http = new HttpClient() { BaseAddress = new Uri("https://openapi.baidu.com") })
-            using (var response = await http.GetAsync("/oauth/2.0/token?grant_type=client_credentials&client_id={client-id}&client_secret={client-secret}"))
+            using (var response = await http.GetAsync("/oauth/2.0/token?grant_type=client_credentials&client_id=xxx&client_secret=xxx"))
             {
                 var body = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<dynamic>(body);
@@ -32,28 +35,10 @@ namespace Pomelo.AlertPlaftform.PlaySound
             }
         }
 
-        public static async Task<string> SaveSpeechMp3Async(string text)
+        private static async Task SaveSpeechMp3Async(string text, string filename)
         {
             var bytes = await DownloadSpeechAsync(text);
-            var name = Guid.NewGuid().ToString().Substring(0, 8) + ".mp3";
-            File.WriteAllBytes(name, bytes);
-            return name;
-        }
-
-        public static Task SpeechAsync(string filename)
-        {
-            taskCompletionSource = new TaskCompletionSource<bool>();
-            WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
-            player.URL = filename;
-            player.controls.play();
-            player.PlayStateChange += Player_PlayStateChange;
-            return taskCompletionSource.Task;
-        }
-
-        private static void Player_PlayStateChange(int NewState)
-        {
-            if (NewState == 1)
-                taskCompletionSource.SetResult(true);
+            File.WriteAllBytes(filename, bytes);
         }
     }
 }

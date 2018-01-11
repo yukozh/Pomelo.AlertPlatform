@@ -30,7 +30,8 @@ namespace Pomelo.AlertPlatform.API.Controllers.Device
             if (await DB.Messages.AnyAsync(x => x.DeviceId == device && x.Status == MessageStatus.Pending))
             {
                 var msg = await DB.Messages.FirstAsync(x => x.DeviceId == device && x.Status == MessageStatus.Pending, token);
-                return Json(new {
+                return Json(new
+                {
                     code = 200,
                     data = msg
                 });
@@ -45,6 +46,7 @@ namespace Pomelo.AlertPlatform.API.Controllers.Device
 
             if (count == 0)
             {
+                Response.StatusCode = 404;
                 return Json(new
                 {
                     code = 404,
@@ -84,10 +86,17 @@ namespace Pomelo.AlertPlatform.API.Controllers.Device
 
             if (!string.IsNullOrEmpty(error))
                 msg.Error = error;
+
             if (status.HasValue)
+            {
                 msg.Status = status.Value;
+                msg.DeliveredTime = DateTime.UtcNow;
+            }
+
             if (retryLeft.HasValue)
                 msg.RetryLeft = retryLeft.Value;
+
+            await DB.SaveChangesAsync();
 
             return Json(new {
                 code = 200

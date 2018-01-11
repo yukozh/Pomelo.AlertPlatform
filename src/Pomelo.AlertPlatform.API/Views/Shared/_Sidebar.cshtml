@@ -31,10 +31,10 @@
             <span>电话通知</span>
             <i class="fa fa-angle-down sidebar-uplevel"></i>
         </a>
-        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-send" ? "active" : "")" asp-action="Send" asp-route-type="Phone">
+        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-send" ? "active" : "")" asp-action="Send" asp-route-type="Voice">
             <span>发送电话通知</span>
         </a>
-        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-history" ? "active" : "")" asp-action="History" asp-route-type="Phone">
+        <a data-group="phone" class="sidebar-section-button nested @(ViewBag.Current == "phone-history" ? "active" : "")" asp-action="History" asp-route-type="Voice">
             <span>历史拨叫记录</span>
         </a>
         @if (User.IsInRole("Root"))

@@ -1,8 +1,4 @@
-﻿@model IEnumerable<App>
-@{
-    ViewBag.Title = "我的应用";
-    ViewBag.Current = "app-my";
-}
+﻿@model IEnumerable<Message>
 
 @section Navigator {
     <div class="columns">
@@ -17,19 +13,25 @@
     <table class="list-table">
         <thead>
             <tr>
-                <th>名称</th>
-                <th>App Id</th>
-                <th>操作</th>
+                <th>App</th>
+                <th>接收方</th>
+                <th>内容</th>
+                <th>状态</th>
+                <th>请求发送时间</th>
+                <th>实际发送时间</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var x in Model)
             {
-                <tr>
-                    <td>@x.Name</td>
-                    <td>@x.Id</td>
-                    <td><a asp-action="AppSecret" asp-route-id="@x.Id">查看Secret</a></td>
-                </tr>
+            <tr>
+                <td>@x.App.Name</td>
+                <td>@x.To</td>
+                <td>@x.Text</td>
+                <td>@x.Status.ToString()</td>
+                <td>@x.CreatedTime</td>
+                <td>@x.DeliveredTime</td>
+            </tr>
             }
         </tbody>
     </table>

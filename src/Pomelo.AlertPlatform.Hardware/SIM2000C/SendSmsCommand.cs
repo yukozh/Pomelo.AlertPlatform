@@ -15,7 +15,7 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
         }
 
         public event Func<Task> OnSendSucceeded;
-        public event Func<string, Task> OnSendFailed;
+        public string Error { get; private set; } = "";
 
         private string computedPhoneNumber;
         private string unicodeText;
@@ -71,7 +71,7 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
             }
             else if (command.Contains("ERROR"))
             {
-                OnSendFailed(command).Wait();
+                Error += command + "\r\n";
                 if (!tcs.Task.IsCompleted)
                     tcs.SetResult(true);
             }
