@@ -50,6 +50,7 @@ namespace Pomelo.AlertPlatform.Hardware.SIM2000C
             SerialPort.StopBits = StopBits.One;
             SerialPort.Encoding = Encoding.ASCII;
             SerialPort.NewLine = "\r\n";
+            Console.WriteLine("正在打开串口：" + SerialPort.PortName);
             SerialPort.Open();
         }
 

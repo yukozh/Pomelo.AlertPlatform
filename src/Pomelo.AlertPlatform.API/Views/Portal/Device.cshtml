@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Device>
+@{ 
+    ViewBag.Title = "设备管理";
+    ViewBag.Current = "system-hardware";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo Alert Platform </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<div class="cont-body no-padding">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>号码</th>
+                <th>状态</th>
+                <th>上次心跳</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+            <tr>
+                <td>@x.PhoneNumber</td>
+                <td>
+                    @if(x.HeartBeat >= DateTime.UtcNow.AddMinutes(-5))
+                    {
+                        <span>在线</span>
+                    }
+                    else
+                    {
+                        <span>离线</span>
+                    }
+                </td>
+                <td>@x.HeartBeat (UTC)</td>
+                <td>
+                    <a asp-action="DeviceDetail" asp-route-id="@x.Id">查看详情</a>
+                    <a href="javascript:delete('@x.Id');">删除</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Paging("tfoot-paging-item", "current", "tfoot-paging-outer")
+</div>
+<div class="cont-body">
+    <h3>添加设备</h3>
+    <form asp-action="AddDevice">
+        <p><label>设备号码</label><input type="text" name="phoneNumber" class="form-control" /></p>
+        <p><input type="submit" class="btn btn-default" /></p>
+    </form>
+</div>
+<form id="frmDeleteDevice" asp-action="DeleteDevice">
+    <input type="hidden" name="id" id="deviceId" />
+</form>
+<script>
+    function delete(id)
+    {
+        $('#deviceId').val(id);
+        $('#frmDeleteDevice').submit();
+    }
+</script>

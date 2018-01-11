@@ -183,5 +183,73 @@ namespace Pomelo.AlertPlatform.API.Controllers.Portal
                 x.RedirectUrl = Url.Action("History", new { type });
             });
         }
+
+        [HttpGet]
+        [Route("/device")]
+        [Authorize(Roles = "Root")]
+        public IActionResult Device()
+        {
+            return PagedView(DB.Devices);
+        }
+
+        [HttpPost]
+        [Route("/device/delete")]
+        [Authorize(Roles = "Root")]
+        public IActionResult DeleteDevice(Guid id)
+        {
+            DB.Devices
+                .Where(x => x.Id == id)
+                .Delete();
+            return Prompt(x => 
+            {
+                x.Title = "删除成功";
+                x.Details = "该设备已被删除";
+                x.HideBack = true;
+                x.RedirectText = "返回设备列表";
+                x.RedirectUrl = Url.Action("Device");
+            });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Root")]
+        [Route("/device/add")]
+        public async Task<IActionResult> AddDevice(string phoneNumber, CancellationToken token)
+        {
+            var device = new Models.Device {
+                HeartBeat = DateTime.UtcNow.AddMinutes(-5),
+                Secret = GetRandomString(128),
+                PhoneNumber = phoneNumber
+            };
+            DB.Devices.Add(device);
+            await DB.SaveChangesAsync(token);
+            return Prompt(x =>
+            {
+                x.Title = "添加成功";
+                x.Details = "设备已被添加";
+                x.HideBack = true;
+                x.RedirectText = "查看Device ID与Secret";
+                x.RedirectUrl = Url.Action("DeviceDetail", new { device.Id });
+            });
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Root")]
+        [Route("/device/{id:Guid}/detail")]
+        public async Task<IActionResult> DeviceDetail(Guid id, CancellationToken token)
+        {
+            var device = await DB.Devices.SingleOrDefaultAsync(x => x.Id == id, token);
+            if (device == null)
+            {
+                return Prompt(x => 
+                {
+                    x.Title = "没有找到设备";
+                    x.Details = "没有找到您指定的设备，请返回重试！";
+                    x.StatusCode = 404;
+                });
+            }
+
+            return View(device);
+        }
     }
 }
