@@ -41,7 +41,7 @@
                 <td>@x.HeartBeat (UTC)</td>
                 <td>
                     <a asp-action="DeviceDetail" asp-route-id="@x.Id">查看详情</a>
-                    <a href="javascript:delete('@x.Id');">删除</a>
+                    <a href="javascript:deleteDevice('@x.Id');">删除</a>
                 </td>
             </tr>
             }
@@ -60,7 +60,7 @@
     <input type="hidden" name="id" id="deviceId" />
 </form>
 <script>
-    function delete(id)
+    function deleteDevice(id)
     {
         $('#deviceId').val(id);
         $('#frmDeleteDevice').submit();
