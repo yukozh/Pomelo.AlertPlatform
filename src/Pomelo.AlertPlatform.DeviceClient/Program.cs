@@ -154,7 +154,7 @@ namespace Pomelo.AlertPlatform.DeviceClient
                 await hangup.ExecuteAsync();
             }
 
-            using (var call = SIM2000.CreateCallCommand("18045054321"))
+            using (var call = SIM2000.CreateCallCommand(phone))
             {
                 call.OnConnectedAsync += async () =>
                 {

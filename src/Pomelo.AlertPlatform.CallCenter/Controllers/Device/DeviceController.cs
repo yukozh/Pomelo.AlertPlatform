@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.AlertPlatform.API.Models;
+using Pomelo.AlertPlatform.CallCenter.Models;
 
-namespace Pomelo.AlertPlatform.API.Controllers.Device
+namespace Pomelo.AlertPlatform.CallCenter.Controllers.Device
 {
     public class DeviceController : BaseController<AlertContext>
     {

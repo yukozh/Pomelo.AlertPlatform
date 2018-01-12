@@ -2,16 +2,16 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.AlertPlatform.API.Models;
+using Pomelo.AlertPlatform.CallCenter.Models;
 
-namespace Pomelo.AlertPlatform.API.Controllers
+namespace Pomelo.AlertPlatform.CallCenter.Controllers
 {
     public class ApiController : BaseController<AlertContext>
     {
-        [HttpPut("message")]
-        [HttpPost("message")]
-        [HttpPatch("message")]
-        public async Task<IActionResult> PutMessage(string to, string text, string phoneNumber, int retry, Guid appId, string secret, MessageType type)
+        [HttpPut("[controller]/message")]
+        [HttpPost("[controller]/message")]
+        [HttpPatch("[controller]/message")]
+        public async Task<IActionResult> PutMessage(string to, string text, int retry, int replay, Guid appId, string secret, MessageType type)
         {
             var app = GetApp(appId, secret);
             if (app == null)
@@ -27,7 +27,8 @@ namespace Pomelo.AlertPlatform.API.Controllers
                     To = to,
                     Type = type,
                     Text = text,
-                    RetryLeft = retry
+                    RetryLeft = retry,
+                    Replay = replay
                 });
                 await DB.SaveChangesAsync();
                 return Result(200, "Succeeded");

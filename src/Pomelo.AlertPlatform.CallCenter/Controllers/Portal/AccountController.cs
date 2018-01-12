@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Pomelo.AlertPlatform.API.Models;
+using Pomelo.AlertPlatform.CallCenter.Models;
 
-namespace Pomelo.AlertPlatform.API.Controllers
+namespace Pomelo.AlertPlatform.CallCenter.Controllers
 {
     public class AccountController : BaseController<AlertContext, User, Guid>
     {

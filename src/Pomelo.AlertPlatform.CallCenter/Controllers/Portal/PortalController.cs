@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.AlertPlatform.API.Models;
+using Pomelo.AlertPlatform.CallCenter.Models;
 
-namespace Pomelo.AlertPlatform.API.Controllers.Portal
+namespace Pomelo.AlertPlatform.CallCenter.Controllers.Portal
 {
     [Authorize]
     public class PortalController : BaseController<AlertContext, User, Guid>
@@ -250,6 +250,41 @@ namespace Pomelo.AlertPlatform.API.Controllers.Portal
             }
 
             return View(device);
+        }
+
+        [HttpGet]
+        [Route("/tenant")]
+        [Authorize(Roles = "Root")]
+        public IActionResult Tenant()
+        {
+            return PagedView(DB.Users.Include(x => x.Apps));
+        }
+
+        [HttpPost]
+        [Route("/tenant")]
+        [Authorize(Roles = "Root")]
+        public async Task<IActionResult> AddTenant(string username, string password, CancellationToken token)
+        {
+            if (await DB.Users.AnyAsync(x => x.UserName == username, token))
+            {
+                return Prompt(x => 
+                {
+                    x.Title = "添加失败";
+                    x.Details = "用户名已经存在";
+                    x.StatusCode = 400;
+                });
+            }
+
+            var user = new User { UserName = username };
+            await User.Manager.CreateAsync(user, password);
+            return Prompt(x =>
+            {
+                x.Title = "添加成功";
+                x.Details = "租户已被创建";
+                x.HideBack = true;
+                x.RedirectText = "转至租户列表";
+                x.RedirectUrl = Url.Action("Tenant");
+            });
         }
     }
 }

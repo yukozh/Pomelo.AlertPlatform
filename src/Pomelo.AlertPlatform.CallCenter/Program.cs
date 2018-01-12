@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Pomelo.AlertPlatform.API
+namespace Pomelo.AlertPlatform.CallCenter
 {
     public class Program
     {

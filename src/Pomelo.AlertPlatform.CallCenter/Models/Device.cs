@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Pomelo.AlertPlatform.API.Models
+namespace Pomelo.AlertPlatform.CallCenter.Models
 {
     public class Device
     {

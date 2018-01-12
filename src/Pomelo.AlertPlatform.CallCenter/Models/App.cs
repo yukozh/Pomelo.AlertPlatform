@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Pomelo.AlertPlatform.API.Models
+namespace Pomelo.AlertPlatform.CallCenter.Models
 {
     public class App
     {

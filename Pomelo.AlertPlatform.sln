@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36382060-EA92-4095-9731-B3D770808A46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.API", "src\Pomelo.AlertPlatform.API\Pomelo.AlertPlatform.API.csproj", "{C6937380-9921-424F-BC96-0B240BCA0FEF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlaftform.PlaySound.Windows", "src\Pomelo.AlertPlaftform.PlaySound.Windows\Pomelo.AlertPlaftform.PlaySound.Windows.csproj", "{B3232A36-4A22-4C92-856B-378BF6319418}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.Hardware", "src\Pomelo.AlertPlatform.Hardware\Pomelo.AlertPlatform.Hardware.csproj", "{464F5D55-13EA-4DAF-8458-547AF9188C19}"
@@ -17,16 +15,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.PlaySo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.DeviceClient", "src\Pomelo.AlertPlatform.DeviceClient\Pomelo.AlertPlatform.DeviceClient.csproj", "{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.AlertPlatform.CallCenter", "src\Pomelo.AlertPlatform.CallCenter\Pomelo.AlertPlatform.CallCenter.csproj", "{57B0BD7F-A95B-463F-8F79-C07F836CF336}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.AlertPlatform.Incident", "src\Pomelo.AlertPlatform.Incident\Pomelo.AlertPlatform.Incident.csproj", "{633B8AE6-8CB9-436D-BC20-16002F7085B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6937380-9921-424F-BC96-0B240BCA0FEF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3232A36-4A22-4C92-856B-378BF6319418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3232A36-4A22-4C92-856B-378BF6319418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3232A36-4A22-4C92-856B-378BF6319418}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,17 +45,26 @@ Global
 		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B0BD7F-A95B-463F-8F79-C07F836CF336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B0BD7F-A95B-463F-8F79-C07F836CF336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B0BD7F-A95B-463F-8F79-C07F836CF336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B0BD7F-A95B-463F-8F79-C07F836CF336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{633B8AE6-8CB9-436D-BC20-16002F7085B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{633B8AE6-8CB9-436D-BC20-16002F7085B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{633B8AE6-8CB9-436D-BC20-16002F7085B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{633B8AE6-8CB9-436D-BC20-16002F7085B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C6937380-9921-424F-BC96-0B240BCA0FEF} = {36382060-EA92-4095-9731-B3D770808A46}
 		{B3232A36-4A22-4C92-856B-378BF6319418} = {36382060-EA92-4095-9731-B3D770808A46}
 		{464F5D55-13EA-4DAF-8458-547AF9188C19} = {36382060-EA92-4095-9731-B3D770808A46}
 		{B809BA29-09B1-4329-B151-19675072800E} = {36382060-EA92-4095-9731-B3D770808A46}
 		{2054B233-7876-46E7-9E38-9BBF1CD7C0BC} = {36382060-EA92-4095-9731-B3D770808A46}
 		{712B8DD1-9E43-4A14-963E-6E51E4FBC80D} = {36382060-EA92-4095-9731-B3D770808A46}
+		{57B0BD7F-A95B-463F-8F79-C07F836CF336} = {36382060-EA92-4095-9731-B3D770808A46}
+		{633B8AE6-8CB9-436D-BC20-16002F7085B0} = {36382060-EA92-4095-9731-B3D770808A46}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36B1F298-4C14-4374-8F35-47A1B5E70ABF}

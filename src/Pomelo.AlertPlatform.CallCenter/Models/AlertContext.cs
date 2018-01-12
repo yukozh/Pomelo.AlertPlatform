@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pomelo.AlertPlatform.API.Models
+namespace Pomelo.AlertPlatform.CallCenter.Models
 {
     public class AlertContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {

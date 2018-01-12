@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Pomelo.AlertPlatform.API.Models;
+using Pomelo.AlertPlatform.CallCenter.Models;
 
-namespace Pomelo.AlertPlatform.API
+namespace Pomelo.AlertPlatform.CallCenter
 {
     public class Startup
     {
