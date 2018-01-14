@@ -1,0 +1,45 @@
+﻿@model IEnumerable<User>
+@{
+    ViewBag.Title = "用户管理";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<form method="get" class="cont-body">
+    <div class="row">
+        <div class="col-md-9"><input type="text" class="form-control" placeholder="用户名" name="username" /></div>
+        <div class="col-md-3"><input type="submit" value="查询" class="btn btn-default" /> <small style="float:right"><a asp-action="Add">+ 创建用户</a></small></div>
+    </div>
+</form>
+
+<div class="cont-body no-padding">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>手机号码</th>
+                <th>角色</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.UserName</td>
+                    <td>@x.PhoneNumber</td>
+                    <td>@((await User.Manager.GetRolesAsync(x)).FirstOrDefault() ?? "普通用户")</td>
+                    <td><a asp-action="Edit" asp-route-id="@x.Id">编辑用户</a> <a href="javascript:deleteUser('@x.UserName');">删除用户</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Paging("tfoot-paging-item", "current", "tfoot-paging-outer")
+</div>

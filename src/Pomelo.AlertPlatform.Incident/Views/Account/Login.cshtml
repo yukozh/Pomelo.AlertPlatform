@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "登录";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="origin" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="icon" href="~/images/icon.png">
+    <title>@ViewBag.Title - Pomelo IcM</title>
+    <link href="~/styles/pomelo.base.min.css" rel="stylesheet" />
+    <script src="~/scripts/pomelo.base.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/scripts/pomelo.extend.js"></script>
+    <script src="~/scripts/Chart.bundle.min.js"></script>
+</head>
+<body class="home-template fixed-navbar">
+    <!-- start header -->
+    <header class="main-header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-list mobile-menu"></i>
+                    </button>
+                    <!-- start logo -->
+                    <a class="navbar-logo" asp-controller="Home" asp-action="Index"><img src="~/images/logo-bk.png" /></a>
+                    <!-- end logo -->
+                </div>
+                @Html.Partial("_Navigator")
+            </div>
+        </nav>
+    </header>
+    <!-- end header -->
+
+    <div class="cover cover-single mobile-cover">
+        <div class="cont-wrap">
+            <div class="grid_12 mobile-cover-center" style="text-align:left">
+                <img src="~/images/logo.png" class="mobile-cover-img" style="height:140px;margin-top:-60px;" />
+            </div>
+        </div>
+    </div>
+    <div class="main-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-md-offset-2">
+                    <div class="card card-single card-error">
+                        <div class="error-block-inner">
+                            <h3>Pomelo IcM</h3>
+                            <form method="post" asp-action="Login" asp-controller="Account">
+                                <p>
+                                    <span class="texthold">用户名</span>
+                                    <input type="text" class="textbox w-3" name="username" />
+                                </p>
+                                <p>
+                                    <span class="texthold">密码</span>
+                                    <input type="password" class="textbox w-3" name="password" />
+                                </p>
+                                <input type="submit" value="登录" class="btn btn-default ripple home-link" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Footer")
+</body>
+</html>

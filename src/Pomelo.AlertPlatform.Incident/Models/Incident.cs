@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,6 +23,8 @@ namespace Pomelo.AlertPlatform.Incident.Models
 
         public int Severity { get; set; }
 
+        public IncidentStatus Status { get; set; }
+
         [ForeignKey("User")]
         public Guid? UserId { get; set; }
 
@@ -35,5 +38,11 @@ namespace Pomelo.AlertPlatform.Incident.Models
         public virtual Project Project { get; set; }
 
         public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+
+        public DateTime? MitigatedTime { get; set; } 
+
+        public DateTime? ResolvedTime { get; set; }
+
+        public virtual ICollection<CallHistory> CallHistories { get; set; }
     }
 }

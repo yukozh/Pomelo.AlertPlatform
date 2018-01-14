@@ -15,5 +15,10 @@ namespace Pomelo.AlertPlatform.Incident.Models
         public Guid? CallCenterId { get; set; }
 
         public DateTime CreatedTime { get; set; }
+
+        [ForeignKey("User")]
+        public Guid UserId { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

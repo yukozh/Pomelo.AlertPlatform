@@ -1,0 +1,36 @@
+﻿<div class="grid_3">
+    <div class="sidebar-section ">
+        <a class="sidebar-section-button @(ViewBag.Current == "home" ? "active" : "")" href="/">
+            <i class="fa fa-dashboard"></i>
+            <span>仪表盘</span>
+        </a>
+        @if (User.IsInRole("Root"))
+        {
+        <a data-group="project" class="sidebar-section-button" asp-action="Index" asp-controller="Project">
+            <i class="fa fa-cube"></i>
+            <span>项目管理</span>
+        </a>
+        }
+        <a data-group="project" class="sidebar-section-button" asp-action="Index" asp-controller="Incident">
+            <i class="fa fa-times-circle"></i>
+            <span>故障管理</span>
+        </a>
+        <a data-group="project" class="sidebar-section-button" asp-action="Index" asp-controller="Oncall">
+            <i class="fa fa-phone"></i>
+            <span>On Call</span>
+        </a>
+        @if (User.IsInRole("Root"))
+        {
+        <a data-group="system" class="sidebar-section-button" asp-action="Index" asp-controller="Account">
+            <i class="fa fa-user"></i>
+            <span>用户管理</span>
+        </a>
+        }
+        <a class="sidebar-section-button" href="javascript:$('#frm-logout').submit();">
+            <i class="fa fa-sign-out"></i>
+            <span>退出系统</span>
+        </a>
+    </div>
+</div>
+
+<form id="frm-logout" asp-action="Logout" asp-controller="Account"></form>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Project>
+@{
+    ViewBag.Title = "项目管理";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM</a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<form method="get" class="cont-body">
+    <div class="row">
+        <div class="col-md-10"><input type="text" class="form-control" placeholder="故障标题" name="title" /></div>
+        <div class="col-md-2"><input type="submit" value="查询" class="btn btn-default" /></div>
+    </div>
+</form>
+
+<div class="cont-body no-padding">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>项目名称</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Name</td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@x.Id">详情</a>
+                        <a>删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Paging("tfoot-paging-item", "current", "tfoot-paging-outer")
+</div>

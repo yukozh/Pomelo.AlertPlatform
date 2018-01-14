@@ -5,30 +5,48 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.AlertPlatform.Incident.Models;
 
 namespace Pomelo.AlertPlatform.Incident
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddConfiguration(out var Config);
+            services.AddEntityFrameworkMySql()
+                .AddDbContext<IncidentContext>(x => {
+                    x.UseMySql(Config["Database"]);
+                    x.UseMySqlLolita();
+                });
+            services
+                .AddIdentity<User, IdentityRole<Guid>>(x =>
+                {
+                    x.Password.RequireDigit = false;
+                    x.Password.RequiredLength = 0;
+                    x.Password.RequireLowercase = false;
+                    x.Password.RequireNonAlphanumeric = false;
+                    x.Password.RequireUppercase = false;
+                    x.User.AllowedUserNameCharacters = null;
+                })
+              .AddDefaultTokenProviders()
+              .AddEntityFrameworkStores<IncidentContext>();
+            services.AddMvc();
+            services.AddSmartUser<User, Guid>();
+            services.AddCallCenter();
+            services.AddTimedJob();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
+            app.UseTimedJob();
         }
     }
 }

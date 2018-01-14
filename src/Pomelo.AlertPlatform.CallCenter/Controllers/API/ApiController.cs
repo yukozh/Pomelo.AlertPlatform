@@ -20,7 +20,7 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
             }
             else
             {
-                DB.Messages.Add(new Message
+                var msg = new Message
                 {
                     AppId = appId,
                     CreatedTime = DateTime.UtcNow,
@@ -29,9 +29,10 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
                     Text = text,
                     RetryLeft = retry,
                     Replay = replay
-                });
+                };
+                DB.Messages.Add(msg);
                 await DB.SaveChangesAsync();
-                return Result(200, "Succeeded");
+                return Result(200, "Succeeded", msg.Id);
             }
         }
 
@@ -40,10 +41,10 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
             return await DB.Apps.SingleOrDefaultAsync(x => x.Id == appId && x.Secret == secret);
         }
 
-        private IActionResult Result(int statuscode, string msg)
+        private IActionResult Result(int statuscode, string msg, object data = null)
         {
             Response.StatusCode = statuscode;
-            return Json(new { code = statuscode, msg = msg });
+            return Json(new { code = statuscode, msg, data });
         }
     }
 }

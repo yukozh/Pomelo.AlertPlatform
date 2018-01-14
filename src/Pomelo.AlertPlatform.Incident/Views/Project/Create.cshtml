@@ -1,0 +1,18 @@
+﻿@model Project
+@{
+    ViewBag.Title = "新建项目";
+}
+
+@section Navigator {
+<div class="columns">
+    <div class="location-path">
+        / <a href="/">Pomelo IcM</a> /
+    </div>
+    <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+</div>
+}
+
+<form class="cont-body" asp-action="Create">
+    <p><label>项目名称</label><br /><input type="text" name="name" class="form-control" /></p>
+    <p><input type="submit" value="创建" class="btn btn-default" /></p>
+</form>

@@ -21,6 +21,8 @@ namespace Pomelo.AlertPlatform.Incident.Models
 
         public DateTime End { get; set; }
 
+        public SlotRole Role { get; set; }
+
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
 

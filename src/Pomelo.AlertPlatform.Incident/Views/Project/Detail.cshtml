@@ -1,0 +1,20 @@
+﻿@model Project
+@{
+    ViewBag.Title = "项目管理";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM</a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+    <div class="cont-body">
+        <p><label>项目名称</label><br /><div>@Model.Name</div></p>
+        <p><label>项目ID</label><br /><div>@Model.Id</div></p>
+        <p><label>Secret</label><br /><pre><code>@Model.Secret</code></pre></p>
+        <p><label>当前发生故障数 / 总故障数</label><br /><div>@ViewBag.ActiveIncidentCount / @ViewBag.IncidentCount</div></p>
+    </div>

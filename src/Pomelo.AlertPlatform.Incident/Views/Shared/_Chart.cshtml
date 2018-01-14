@@ -1,0 +1,62 @@
+﻿@*@model ChartMeta
+
+@{
+    var id = Model.Id;
+    var url = Model.Url;
+    var canvas_id = id + "_canvas";
+    var time_range_id = id + "_time_range";
+    var load_chart_func_name = "load_chart_for_" + id;
+    var chart_instance = "chart_" + id;
+}
+
+<div class="cont-body">
+    <select class="pull-right" id="@time_range_id" onchange="@load_chart_func_name ()">
+        <option value="60,60">一分钟</option>
+        <option value="300,60">五分钟</option>
+        <option value="1800,60">半小时</option>
+        <option value="3600,60">一小时</option>
+        <option value="21600,12">6小时</option>
+        <option value="43200,12">12小时</option>
+        <option value="86400,24" selected="selected">一天</option>
+        <option value="604800,7">一周</option>
+        <option value="2592000,30">30天</option>
+    </select>
+    <canvas id="@canvas_id" style="width: 100%"></canvas>
+</div>
+<script>
+    var @chart_instance = null;
+    function @load_chart_func_name () {
+        let now = new Date();
+        let range_val = $("#@time_range_id").val().split(",");
+        let range = Number(range_val[0]);
+        let points = Number(range_val[1]);
+        let end = Math.floor(now.getTime() / 1000);
+        let start = end - range;
+        let interval = Math.floor(range / points);
+        $.get(
+            "@url?start=" + start + "&end=" + end + "&interval=" + interval +
+            "&timezoneoffset=" + now.getTimezoneOffset(),
+            function (data) {
+                if (@chart_instance == null) {
+                    var ctx = document.getElementById("@canvas_id").getContext('2d');
+                    if (data.options == null) { 
+                        data.options = {};
+                    }
+                    if (data.title != null) { 
+                        data.options.title = {
+                            display: true,
+                            text: data.title
+                        };
+                    }
+                    @chart_instance = new Chart(ctx, data);
+                } else {
+                    @chart_instance .data = data.data;
+                    @chart_instance .update();
+                }
+            }
+        )
+    }
+    $(document).ready(function () {
+        @load_chart_func_name ()
+    })
+</script>*@

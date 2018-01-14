@@ -16133,15 +16133,3 @@ td i {
 .list-table tr {
     border-bottom: 1px solid #ddd;
 }
-
-.color-status-red {
-    color: #fb6666;
-}
-
-.color-status-orange {
-    color: #f39800;
-}
-
-.color-status-green {
-    color: #2ac649;
-}

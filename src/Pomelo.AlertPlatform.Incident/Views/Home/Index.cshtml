@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Incident>
+@{ 
+    ViewBag.Title = "首页";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<div class="cont-body no-padding">
+    Hello World
+</div>
