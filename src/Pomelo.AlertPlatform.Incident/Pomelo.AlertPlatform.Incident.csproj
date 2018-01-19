@@ -5,16 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\pomelo-icm - FTP.pubxml" />
+    <None Remove="Properties\PublishProfiles\pomelo-icm - Web Deploy.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Pomelo.AspNetCore.Extensions" Version="2.0.0-rtm-10044" />
-    <PackageReference Include="Pomelo.AspNetCore.TimedJob" Version="2.0.0-rtm-10044" />
+    <PackageReference Include="Pomelo.AspNetCore.TimedJob" Version="2.0.0-rtm-10046" />
     <PackageReference Include="Pomelo.Data.Excel" Version="2.0.0-rtm-10044" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.Lolita.MySql" Version="2.0.0-rtm-10016" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\OnCall\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

@@ -46,7 +46,11 @@ namespace Pomelo.AlertPlatform.Incident
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            app.UseTimedJob();
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                app.UseTimedJob();
+            }
         }
     }
 }

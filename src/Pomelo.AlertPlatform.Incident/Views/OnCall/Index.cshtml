@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OnCallSlotViewModel>
+@{
+    ViewBag.Title = "On-Call日程";
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<form method="get" class="cont-body">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-control" name="projectId">
+                <option value="">所有项目</option>
+                @foreach (Project x in ViewBag.Projects)
+                {
+                <option value="@x.Id">@x.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="datetime form-control" name="begin" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="datetime form-control" name="end" />
+        </div>
+        <div class="col-md-3"><input type="submit" value="查询" class="btn btn-default" /></div>
+    </div>
+</form>
+
+<div class="cont-body no-padding">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>Primary</th>
+                <th>Backup</th>
+                <th>Incident Manager</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+            <tr>
+                <td>@x.Begin</td>
+                <td>@x.End</td>
+                <td>@x.Primary</td>
+                <td>@x.Backup</td>
+                <td>@x.IncidentManager</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

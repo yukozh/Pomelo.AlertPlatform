@@ -1,0 +1,28 @@
+﻿@model Project
+@{
+    ViewBag.Title = "上传On-Call日程表";
+}
+
+@section Navigator {
+<div class="columns">
+    <div class="location-path">
+        / <a href="/">Pomelo IcM</a> /
+    </div>
+    <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+</div>
+}
+
+<form class="cont-body" asp-action="Upload" enctype="multipart/form-data">
+    <p>
+        <label>项目</label>
+        <br />
+        <select class="form-control" name="projectId">
+            @foreach (Project x in ViewBag.Projects)
+            {
+            <option value="@x.Id">@x.Name</option>
+            }
+        </select>
+    </p>
+    <p><label>On-call Excel文件</label><br /><input type="file" name="file" class="form-control" /></p>
+    <p><input type="submit" value="创建" class="btn btn-default" /></p>
+</form>

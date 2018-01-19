@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +15,7 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
         [HttpPatch("[controller]/message")]
         public async Task<IActionResult> PutMessage(string to, string text, int retry, int replay, Guid appId, string secret, MessageType type)
         {
-            var app = GetApp(appId, secret);
-            if (app == null)
+            if (!DB.Apps.Any(x => x.Id == appId && x.Secret == secret))
             {
                 return Result(404, "Not found");
             }
@@ -22,6 +23,7 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
             {
                 var msg = new Message
                 {
+                    Id = Guid.NewGuid(),
                     AppId = appId,
                     CreatedTime = DateTime.UtcNow,
                     To = to,
@@ -30,11 +32,42 @@ namespace Pomelo.AlertPlatform.CallCenter.Controllers
                     RetryLeft = retry,
                     Replay = replay
                 };
-                DB.Messages.Add(msg);
-                await DB.SaveChangesAsync();
+
+                DB.Database.ExecuteSqlCommand("INSERT INTO `messages` (`Id`, `AppId`, `CreatedTime`, `To`, `Type`, `Text`, `RetryLeft`, `Replay`) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})", 
+                    msg.Id,
+                    msg.AppId, 
+                    msg.CreatedTime, 
+                    msg.To,
+                    msg.Type,
+                    msg.Text,
+                    msg.RetryLeft,
+                    msg.Replay);
+
                 return Result(200, "Succeeded", msg.Id);
             }
         }
+
+        [HttpGet("[controller]/message")]
+        public async Task<IActionResult> GetMessage(Guid id, Guid appId, string secret, CancellationToken token)
+        {
+            if (!DB.Apps.Any(x => x.Id == appId && x.Secret == secret))
+            {
+                return Result(404, "Not found");
+            }
+            else
+            {
+                var msg = await DB.Messages.SingleOrDefaultAsync(x => x.Id == id, token);
+                if (msg == null)
+                {
+                    return Result(404, "Not Found");
+                }
+                else
+                {
+                    return Result(200, "Succeeded", msg);
+                }
+            }
+        }
+
 
         private async Task<App> GetApp(Guid appId, string secret)
         {

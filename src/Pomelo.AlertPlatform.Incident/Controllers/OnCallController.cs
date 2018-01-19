@@ -6,12 +6,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.Data.Excel;
 using Pomelo.AlertPlatform.Incident.Models;
+using Pomelo.AlertPlatform.Incident.ViewModels;
 
 namespace Pomelo.AlertPlatform.Incident.Controllers
 {
+    [Authorize]
     public class OnCallController : BaseController<IncidentContext, User, Guid>
     {
         public async Task<IActionResult> Index(Guid? project, DateTime? begin, DateTime? end, CancellationToken token)
@@ -57,18 +60,28 @@ namespace Pomelo.AlertPlatform.Incident.Controllers
                 .ToDictionary(x => x.Id);
 
             var ret = result.GroupBy(x => new { x.Begin, x.End })
-                .Select(x => new { x.Key.Begin, x.Key.End, Primary = x.Single(y => y.Role == SlotRole.Primary).User.UserName, Backup = x.Single(y => y.Role == SlotRole.Backup).User.UserName, IncidentManager = x.Single(y => y.Role == SlotRole.IncidentManager).User.UserName })
+                .Select(x => new OnCallSlotViewModel { Begin = x.Key.Begin, End = x.Key.End, Primary = x.Single(y => y.Role == SlotRole.Primary).User.UserName, Backup = x.Single(y => y.Role == SlotRole.Backup).User.UserName, IncidentManager = x.Single(y => y.Role == SlotRole.IncidentManager).User.UserName })
                 .ToList();
 
+            ViewBag.Projects = await DB.Projects.ToListAsync(token);
             return View(ret);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Upload(CancellationToken token)
+        {
+            ViewBag.Projects = await DB.Projects.ToListAsync(token);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upload(IFormFile file, Guid projectId)
         {
             var fileStream = file.OpenReadStream();
             var excel = new ExcelStream();
             excel.Load(fileStream);
-            var sheet1 = excel.LoadSheetHDR(0);
+            var sheet1 = excel.LoadSheetHDR(excel.WorkBook.First().Name);
             var slots = new List<OnCallSlot>(sheet1.Count);
             foreach (var x in sheet1)
             {

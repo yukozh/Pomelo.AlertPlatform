@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Pomelo.AlertPlatform.CallCenter.Models
 {
@@ -45,8 +47,10 @@ namespace Pomelo.AlertPlatform.CallCenter.Models
 
         public DateTime? DeliveredTime { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public MessageType Type { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public MessageStatus Status { get; set; }
 
         public string Error { get; set; }

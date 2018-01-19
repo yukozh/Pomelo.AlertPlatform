@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.AspNetCore.TimedJob;
 using Pomelo.AlertPlatform.Incident.Lib;
@@ -13,20 +12,34 @@ namespace Pomelo.AlertPlatform.Incident.TimedJob
     public class CallJob : Job
     {
         [Invoke(Begin = "2018-01-01", Interval = 1000 * 30, SkipWhileExecuting = true)]
-        public void TriggerAlert(IServiceProvider services)
+        public void TriggerAlert(IncidentContext db, CallCenter callCenter)
         {
-            var db = services.GetService<IncidentContext>();
-            var callCenter = services.GetService<CallCenter>();
+            Console.WriteLine($"[{DateTime.UtcNow}] 正在扫描未触发报警的故障记录...");
             var nonAckedIncidents = db.Incidents
                 .Include(x => x.Project)
                 .Include(x => x.CallHistories)
-                .Where(x => x.UserId == null && x.Severity >= 2)
+                .Where(x => x.UserId == null)
                 .ToList();
             var slots = GetOnCallSlots(db);
             Parallel.ForEach(nonAckedIncidents, x => {
+                if (x.CallHistories.LastOrDefault()?.CreatedTime.AddMinutes(3) >= DateTime.UtcNow)
+                {
+                    return;
+                }
+
+                if (x.CallHistories.Count > 0 && x.Severity > 2)
+                {
+                    return;
+                }
+
+                if (x.CallHistories.Count > 0 && !callCenter.IsMessageSendOutAsync(x.CallHistories.Last().CallCenterId.Value).Result)
+                {
+                    return;
+                }
+
                 var callHistory = GenerateCall(slots.Where(y => y.ProjectId == x.ProjectId), x);
                 var phone = slots.First(y => y.UserId == callHistory.UserId).User.PhoneNumber;
-                callHistory.CallCenterId = callCenter.TriggerAlertAsync($"您好，这里是柚子故障监控平台，在{x.Project.Name}中发生了严重程度为{x.Severity}的故障，请您及时查看，谢谢。", "Voice", phone).Result;
+                callHistory.CallCenterId = callCenter.TriggerAlertAsync($"您好，这里是柚子故障监控平台，在{x.Project.Name}中发生了严重程度为{x.Severity}的故障，请您及时查看，谢谢。", x.Severity <= 2 ? "Voice" : "Sms", phone).Result;
                 db.CallHistories.Add(callHistory);
             });
             db.SaveChanges();

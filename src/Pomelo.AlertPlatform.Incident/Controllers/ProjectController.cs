@@ -4,11 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.AlertPlatform.Incident.Models;
 
 namespace Pomelo.AlertPlatform.Incident.Controllers
 {
+    [Authorize]
     public class ProjectController : BaseController<IncidentContext, User, Guid>
     {
         public async Task<IActionResult> Index(string name, CancellationToken token)

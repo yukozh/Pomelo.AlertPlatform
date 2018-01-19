@@ -1,0 +1,75 @@
+﻿@model Incident
+@{
+    ViewBag.Title = "故障 #" + Model.Id;
+}
+
+@section Navigator {
+    <div class="columns">
+        <div class="location-path">
+            / <a href="/">Pomelo IcM </a> /
+        </div>
+        <h1 class="location-current" data-emoji-enabled="">@ViewBag.Title</h1>
+    </div>
+}
+
+<div class="cont-body no-padding">
+    <table class="incident-head-table">
+        <tr>
+            <td rowspan="2" class="incident-left-side @(Model.Status == IncidentStatus.Active ? "red" : (Model.Status == IncidentStatus.Mitigated ? "orange" : "green"))">
+                <div>#@Model.Id</div>
+                @if (Model.Status == IncidentStatus.Resolved)
+                {
+                    <div class="color-status-green">@Model.Status</div>
+                }
+                else if (Model.Status == IncidentStatus.Mitigated)
+                {
+                    <div class="color-status-orange">@Model.Status</div>
+                }
+                else
+                {
+                    <div class="color-status-red">@Model.Status</div>
+                }
+                <div>严重级别 @Model.Severity</div>
+            </td>
+            <td colspan="5">@Model.Title</td>
+        </tr>
+        <tr class="incident-right-second-line">
+            <td><strong>项目</strong> @Model.Project.Name</td>
+            <td>
+                <strong>负责人</strong>
+                @if (Model.UserId.HasValue)
+                {
+                    <span>@Model.User.UserName</span>
+                }
+                else
+                {
+                    <span class="color-status-red">未被获知</span>
+                }
+            </td>
+            <td><strong>发生次数</strong> @Model.HitCount</td>
+            <td><strong>发生时间</strong> @Model.CreatedTime</td>
+            <td class="incident-buttons-col">
+                @if (!Model.UserId.HasValue)
+                {
+                    <a href="javascript:$('#frmAck').submit();" class="button default"><i class="fa fa-eye"></i> 获知该故障</a>
+                }
+                @if (Model.Status == IncidentStatus.Active)
+                {
+                    <a href="javascript:$('#frmMitigate').submit();" class="button default"><i class="fa fa-wrench"></i> 故障已缓解</a>
+                }
+                @if (Model.Status != IncidentStatus.Resolved)
+                {
+                    <a href="javascript:$('#frmResolve').submit();" class="button default"><i class="fa fa-check-square"></i> 故障已解决</a>
+                }
+                else
+                {
+                    <a href="javascript:$('#frmReactive').submit();" class="button default"><i class="fa fa-refresh"></i> 重新打开该故障</a>
+                }
+            </td>
+        </tr>
+    </table>
+</div>
+<form id="frmAck" asp-action="Acknowledge" asp-route-id="@Model.Id"></form>
+<form id="frmMitigate" asp-action="Mitigate" asp-route-id="@Model.Id"></form>
+<form id="frmResolve" asp-action="Resolve" asp-route-id="@Model.Id"></form>
+<form id="frmReactive" asp-action="Reactive" asp-route-id="@Model.Id"></form>

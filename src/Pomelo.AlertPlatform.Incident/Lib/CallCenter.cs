@@ -33,7 +33,16 @@ namespace Pomelo.AlertPlatform.Incident.Lib
             {
                 var str = await response.Content.ReadAsStringAsync();
                 var json = JsonConvert.DeserializeObject<dynamic>(str);
-                return Guid.Parse(json.data);
+                return Guid.Parse((string)json.data);
+            }
+        }
+
+        public async Task<bool> IsMessageSendOutAsync(Guid callCenterId)
+        {
+            using (var response = await client.GetAsync($"/api/message?id={callCenterId}&appId={ _config["CallCenter:AppId"] }&secret={ _config["CallCenter:Secret"] }"))
+            {
+                var json = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+                return json.status != "Pending";
             }
         }
     }
