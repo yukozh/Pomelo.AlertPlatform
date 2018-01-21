@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pomelo.AlertPlatform.Incident.Models
@@ -20,5 +21,12 @@ namespace Pomelo.AlertPlatform.Incident.Models
         public Guid UserId { get; set; }
 
         public virtual User User { get; set; }
+
+        [MaxLength(16)]
+        public string Type { get; set; }
+
+        public SlotRole Role { get; set; }
+
+        public bool Ignore { get; set; }
     }
 }

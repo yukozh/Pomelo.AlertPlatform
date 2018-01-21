@@ -53,6 +53,8 @@ namespace Pomelo.AlertPlatform.Incident.Controllers
             var incident = await DB.Incidents
                 .Include(x => x.User)
                 .Include(x => x.Project)
+                .Include(x => x.CallHistories)
+                .ThenInclude(x => x.User)
                 .SingleOrDefaultAsync(x => x.Id == id, token);
             return View(incident);
         }
@@ -170,6 +172,11 @@ namespace Pomelo.AlertPlatform.Incident.Controllers
             incident.MitigatedTime = null;
             incident.ResolvedTime = null;
             incident.UserId = null;
+            
+            DB.CallHistories
+                .Where(x => x.IncidentId == incident.Id)
+                .SetField(x => x.Ignore).WithValue(true)
+                .Update();
 
             await DB.SaveChangesAsync();
 

@@ -27,19 +27,20 @@ namespace Pomelo.AlertPlatform.Incident.TimedJob
                     return;
                 }
 
-                if (x.CallHistories.Count > 0 && x.Severity > 2)
+                if (x.CallHistories.Where(y => !y.Ignore).Count() > 0 && x.Severity > 2)
                 {
                     return;
                 }
 
-                if (x.CallHistories.Count > 0 && !callCenter.IsMessageSendOutAsync(x.CallHistories.Last().CallCenterId.Value).Result)
+                if (x.CallHistories.Where(y => !y.Ignore).Count() > 0 && !callCenter.IsMessageSendOutAsync(x.CallHistories.Last().CallCenterId.Value).Result)
                 {
                     return;
                 }
 
                 var callHistory = GenerateCall(slots.Where(y => y.ProjectId == x.ProjectId), x);
                 var phone = slots.First(y => y.UserId == callHistory.UserId).User.PhoneNumber;
-                callHistory.CallCenterId = callCenter.TriggerAlertAsync($"您好，这里是柚子故障监控平台，在{x.Project.Name}中发生了严重程度为{x.Severity}的故障，请您及时查看，谢谢。", x.Severity <= 2 ? "Voice" : "Sms", phone).Result;
+                callHistory.Type = x.Severity <= 2 ? "Voice" : "Sms";
+                callHistory.CallCenterId = callCenter.TriggerAlertAsync($"您好，这里是柚子故障监测平台，在{x.Project.Name}中发生了严重程度为{x.Severity}的{x.Title}故障，故障编号{x.Id}，请您及时查看，谢谢。", callHistory.Type, phone).Result;
                 db.CallHistories.Add(callHistory);
             });
             db.SaveChanges();
@@ -47,14 +48,15 @@ namespace Pomelo.AlertPlatform.Incident.TimedJob
 
         private CallHistory GenerateCall(IEnumerable<OnCallSlot> slots, Models.Incident incident)
         {
-            var lastCall = incident.CallHistories.LastOrDefault();
+            var lastCall = incident.CallHistories.Where(y => !y.Ignore).LastOrDefault();
             if (lastCall == null)
             {
                 return new CallHistory
                 {
                     IncidentId = incident.Id,
                     CreatedTime = DateTime.UtcNow,
-                    UserId = slots.First().UserId
+                    UserId = slots.First().UserId,
+                    Role = SlotRole.Primary
                 };
             }
             else
@@ -65,7 +67,8 @@ namespace Pomelo.AlertPlatform.Incident.TimedJob
                 {
                     IncidentId = incident.Id,
                     CreatedTime = DateTime.UtcNow,
-                    UserId = slots.Single(x => x.Role == (SlotRole)role).UserId
+                    UserId = slots.Single(x => x.Role == (SlotRole)role).UserId,
+                    Role = (SlotRole)role
                 };
             }
         }

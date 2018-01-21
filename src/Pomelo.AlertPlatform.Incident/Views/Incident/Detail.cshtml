@@ -69,6 +69,60 @@
         </tr>
     </table>
 </div>
+
+<div>
+    <a class="tab-button button default" id="tabBtnSummary" href="javascript:openTab('Summary');">故障概要</a>
+    <a class="tab-button button" id="tabBtnCallHistories" href="javascript:openTab('CallHistories');">呼叫记录</a>
+</div>
+
+<div class="cont-body tab-outer" id="tabSummary">
+    @Html.Marked(Model.Summary)
+</div>
+
+<div class="cont-body no-padding tab-outer" id="tabCallHistories">
+    <table class="list-table">
+        <thead>
+            <tr>
+                <th>呼叫类型</th>
+                <th>被叫者</th>
+                <th>被叫者角色</th>
+                <th>手机号码</th>
+                <th>时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.CallHistories)
+            {
+            <tr>
+                @if (x.Type == "Voice")
+                {
+                <td><i class="fa fa-phone"></i> 语音通知</td>
+                }
+                else
+                {
+                <td><i class="fa fa-comment-o"></i> 短信通知</td>
+                }
+                <td>@x.User.UserName</td>
+                <td>@x.Role.ToString()</td>
+                <td>@x.User.PhoneNumber</td>
+                <td>@x.CreatedTime (UTC)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('#tabCallHistories').hide();
+
+    function openTab(tab) { 
+        $('.tab-outer').hide();
+        $('.tab-button').removeClass('default');
+        $('#tab' + tab).show();
+        $('#tabBtn' + tab).addClass('default');
+    }
+</script>
+
 <form id="frmAck" asp-action="Acknowledge" asp-route-id="@Model.Id"></form>
 <form id="frmMitigate" asp-action="Mitigate" asp-route-id="@Model.Id"></form>
 <form id="frmResolve" asp-action="Resolve" asp-route-id="@Model.Id"></form>

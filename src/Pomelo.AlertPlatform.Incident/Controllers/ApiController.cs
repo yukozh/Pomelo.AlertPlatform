@@ -31,6 +31,12 @@ namespace Pomelo.AlertPlatform.Incident.Controllers
                 incident.UserId = null;
                 incident.HitCount++;
                 incident.Status = IncidentStatus.Active;
+                incident.Summary += "\r\n\r\n" + DateTime.UtcNow.ToString() + "(UTC):\r\n\r\n" + body;
+
+                DB.CallHistories
+                    .Where(x => x.IncidentId == incident.Id)
+                    .SetField(x => x.Ignore).WithValue(true)
+                    .Update();
             }
             else
             {
@@ -39,7 +45,7 @@ namespace Pomelo.AlertPlatform.Incident.Controllers
                     CreatedTime = DateTime.UtcNow,
                     ProjectId = projectId,
                     Title = title,
-                    Summary = body,
+                    Summary = DateTime.UtcNow.ToString() + "(UTC):\r\n\r\n" + body,
                     Severity = severity
                 };
                 DB.Incidents.Add(incident);
